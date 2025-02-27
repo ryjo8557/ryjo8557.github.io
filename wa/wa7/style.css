@@ -2,7 +2,8 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: blanchedalmond;
+    background-color: #A7C957;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 nav{
     height: 50vh;
@@ -10,26 +11,58 @@ nav{
     flex-direction: row;
     justify-content: space-between;
     height:20px;
-    background-color: blueviolet;
+    background-color: #6A994E;
+
+    padding: .5em;
+    position: sticky;
+    top:0;
+}
+
+h1{
+    color: #F2E8CF;
 }
 nav a{
     width:10vw;
     text-align: center;
     text-decoration: none;
-    color:black;
+    color:#F2E8CF;
+
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    justify-items: center;
+    justify-content: space-between;
 }
 
 img{
-    width:30vw;
+    width:35vw;
     height: 30vh;
+    margin-top: 2em;
 }
 
 #red-ball{
-    background-color: crimson;
+    background-color: #BC4749;
     width: 20px;
     height:20px;
     border-radius: 50%;
     position: absolute;
     left:5vw;
     top:0;
+
+    transition: height .5s;
+}
+
+#red-ball:hover{
+    height: 200px;
+}
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+   80% { transform: rotate(0deg); }
+   85% { transform: rotate(3deg); }
+   95% { transform: rotate(-3deg); }
+  100% { transform: rotate(0deg); }
+}
+
+h1.wiggle {
+  display: inline-block;
+  animation: wiggle 1s infinite;
 }
