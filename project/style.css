@@ -1,0 +1,113 @@
+body {
+    background: radial-gradient(circle, #250d3d, #000);
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.vertical-bar {
+    width: 80px;
+    height: 90vh;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    position: relative;
+    padding: 10px;
+}
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(128, 0, 128, 0.5);
+    z-index: -1;
+}
+
+.orchestra-name {
+    position: absolute;
+    right: 2em;
+    bottom: 18em;
+    left: 60em;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    letter-spacing: 4px;
+    z-index: 1;
+    color: #ff0dff;
+}
+
+.concert {
+    width: 60px;
+    height: 60px;
+    background: #ff0dff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+.concert:hover {
+    transform: scale(1.2);
+}
+
+.concert-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.concert:hover ~ .orchestra-name {
+    visibility: hidden;
+}
+
+.detail-box {
+    display: none;
+    position: absolute;
+    left: 100px;
+    top: 50%;
+    width: 280px;
+    max-width: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    padding: 15px;
+    border-radius: 15px;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: left;
+    overflow: hidden;
+    word-wrap: break-word;
+    white-space: normal;
+    z-index: 2;
+}
+
+.concert:hover + .detail-box {
+    display: block;
+}
+
+.detail-box > div {
+    margin: 10px 0;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
