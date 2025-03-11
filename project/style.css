@@ -76,10 +76,6 @@ body {
     margin: 10px 0;
 }
 
-.concert:hover ~ .orchestra-name {
-    visibility: hidden;
-}
-
 .detail-box {
     display: none;
     position: absolute;
