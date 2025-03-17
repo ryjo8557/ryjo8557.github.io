@@ -32,7 +32,8 @@ body {
 .circle {
     position: absolute;
     border-radius: 50%;
-    background: rgba(128, 0, 128, 0.5);
+    background: #ff0dff;
+    opacity: 20%;
     z-index: -1;
 }
 
