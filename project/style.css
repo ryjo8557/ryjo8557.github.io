@@ -76,12 +76,51 @@ body {
     margin: 10px 0;
 }
 
+.title-box {
+    display: none;
+    position: fixed;
+    top: 35%;
+    left: 275%;
+    transform: translate(-50%, -50%); 
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    width: 285px;
+    margin-bottom: 10px;
+    z-index: 2;
+}
+
+.description-box {
+    display: none;
+    position: fixed;
+    left: -260%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 450px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    padding: 15px;
+    border-radius: 15px;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: left;
+    word-wrap: break-word;
+    white-space: normal;
+    z-index: 2;
+}
+
 .detail-box {
     display: none;
-    position: absolute;
-    left: 100px;
+    position: fixed;
+    left: 285%;
     top: 50%;
-    width: 280px;
+    transform: translate(-50%, -50%);
+    width: 380px;
     max-width: 300px;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(5px);
@@ -95,6 +134,15 @@ body {
     word-wrap: break-word;
     white-space: normal;
     z-index: 2;
+}
+
+.concert-wrapper:hover .title-box {
+    display: block;
+}
+
+.concert-wrapper:hover .description-box,
+.concert-wrapper:hover .detail-box {
+    display: block;
 }
 
 .concert:hover + .detail-box {
