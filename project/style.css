@@ -39,8 +39,7 @@ body {
 .orchestra-name {
     position: absolute;
     right: 2em;
-    bottom: 18em;
-    left: 60em;
+    bottom: 1em;
     font-size: 24px;
     font-weight: bold;
     color: white;
