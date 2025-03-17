@@ -155,3 +155,52 @@ body {
     background: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
 }
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background: #ff0dff;
+    opacity: 0;
+    z-index: -1;
+    animation: fadeInOut 5s infinite;
+}
+
+.circle:nth-child(1) {
+    animation-delay: -0.5s;
+}
+.circle:nth-child(2) {
+    animation-delay: -1s;
+}
+.circle:nth-child(3) {
+    animation-delay: -1.5s;
+}
+.circle:nth-child(4) {
+    animation-delay: -2s;
+}
+.circle:nth-child(5) {
+    animation-delay: -2.5s;
+}
+.circle:nth-child(6) {
+    animation-delay: -3s;
+}
+.circle:nth-child(7) {
+    animation-delay: -3.5s;
+}
+.circle:nth-child(8) {
+    animation-delay: -4s;
+}
+.circle:nth-child(9) {
+    animation-delay: -4.5s;
+}
