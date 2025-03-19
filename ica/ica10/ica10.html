@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICA10</title>
+</head>
+<body>
+    <h1>Look at my sexy JS</h1>
+    <button id="colorButton">Change Background Color</button>
+    <br><br>
+    <img id="image" src="/img/chris.jpg" alt="Placeholder Image">
+
+    <script>
+        document.getElementById("colorButton").addEventListener("click", function() {
+            document.body.style.backgroundColor = "#" + Math.floor(Math.random()*16777215).toString(16);
+        });
+
+        document.getElementById("image").addEventListener("mouseenter", function() {
+            this.style.transform = "rotate(20deg)";
+        });
+        
+        document.getElementById("image").addEventListener("mouseleave", function() {
+            this.style.transform = "rotate(0deg)";
+        });
+    </script>
+</body>
+</html>
