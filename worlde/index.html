@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/modal.css">
+</head>
+<body>
+    <!-- Help Button -->
+    <button id="help-button">?</button>
+    
+    <!-- Instructions Modal -->
+    <div id="instructions-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>How To Play</h2>
+            <p>Guess the Wordle in 6 tries.</p>
+            <ul>
+                <li>Each guess must be a valid 5-letter word.</li>
+                <li>The color of the tiles will change to show how close your guess was to the word.</li>
+            </ul>
+            <h3>Examples</h3>
+            <div class="example-row">
+                <div class="example-tile green-tile">W</div>
+                <div class="example-tile grey-tile">O</div>
+                <div class="example-tile grey-tile">R</div>
+                <div class="example-tile grey-tile">D</div>
+                <div class="example-tile grey-tile">Y</div>
+            </div>
+            <p>W is in the word and in the correct spot.</p>
+            
+            <div class="example-row">
+                <div class="example-tile grey-tile">L</div>
+                <div class="example-tile yellow-tile">I</div>
+                <div class="example-tile grey-tile">G</div>
+                <div class="example-tile grey-tile">H</div>
+                <div class="example-tile grey-tile">T</div>
+            </div>
+            <p>I is in the word but in the wrong spot.</p>
+            
+            <div class="example-row">
+                <div class="example-tile grey-tile">R</div>
+                <div class="example-tile grey-tile">O</div>
+                <div class="example-tile grey-tile">G</div>
+                <div class="example-tile grey-tile">U</div>
+                <div class="example-tile grey-tile">E</div>
+            </div>
+            <p>None of these letters are in the word.</p>
+        </div>
+    </div>
+    
+    <!-- Game Grid -->
+    <div id="grid-container">
+        <!-- Dynamically updated by Script.js -->
+    </div>
+    
+    <!-- Keyboard -->
+    <div id="keyboard">
+        <div class="row">
+            <div class="key">Q</div>
+            <div class="key">W</div>
+            <div class="key">E</div>
+            <div class="key">R</div>
+            <div class="key">T</div>
+            <div class="key">Y</div>
+            <div class="key">U</div>
+            <div class="key">I</div>
+            <div class="key">O</div>
+            <div class="key">P</div>
+        </div>
+        <div class="row">
+            <div class="key">A</div>
+            <div class="key">S</div>
+            <div class="key">D</div>
+            <div class="key">F</div>
+            <div class="key">G</div>
+            <div class="key">H</div>
+            <div class="key">J</div>
+            <div class="key">K</div>
+            <div class="key">L</div>
+        </div>
+        <div class="row">
+            <div class="key" id="enter-key">Enter</div>
+            <div class="key">Z</div>
+            <div class="key">X</div>
+            <div class="key">C</div>
+            <div class="key">V</div>
+            <div class="key">B</div>
+            <div class="key">N</div>
+            <div class="key">M</div>
+            <div class="key" id="backspace-key">Backspace</div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="js/modal.js"></script>
+    <script src="js/keyboard.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>

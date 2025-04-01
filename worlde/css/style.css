@@ -1,0 +1,140 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+body {
+    background-color: #1a1818;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Help Button */
+#help-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #7289da;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#help-button:hover {
+    background-color: #5b6eae;
+}
+
+/* Grid Styles */
+#grid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.grid-row {
+    display: flex;
+}
+
+.grid-square {
+    width: 60px;
+    height: 60px;
+    margin: 3px;
+    background-color: #36393F;
+    border: 2px solid #70757a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #fff;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.grid-square.animate {
+    animation: enlarge-shrink 0.2s forwards;
+}
+
+/* Keyboard Styles */
+#keyboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.row {
+    display: flex;
+}
+
+.key {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 30px;
+    height: 60px;
+    padding: 0 10px;
+    margin: 3px;
+    background-color: #7289da;
+    border: 1px solid #424549;
+    border-radius: 5px;
+    font-size: 20px;
+    font-family: 'Nunito', sans-serif;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.key:hover {
+    background-color: #5b6eae;
+}
+
+.key:active {
+    transform: scale(0.95);
+}
+
+#enter-key, #backspace-key {
+    min-width: 70px;
+    font-size: 16px;
+    background-color: #43b581;
+}
+
+#enter-key:hover, #backspace-key:hover {
+    background-color: #3a9d6f;
+}
+
+/* Animations */
+@keyframes enlarge-shrink {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+@keyframes flip {
+    0% { transform: rotateX(0); }
+    50% { transform: rotateX(90deg); }
+    100% { transform: rotateX(0); }
+}
+
+.grid-square.flip {
+    animation: flip 0.6s ease-in-out;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
