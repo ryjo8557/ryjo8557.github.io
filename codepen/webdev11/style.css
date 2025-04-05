@@ -1,0 +1,136 @@
+/* Base Style Overrides */
+main {
+  margin: 30vh 0em;
+}
+
+section {
+  margin: 10vh 0em;
+}
+
+.full-width {
+  padding: 5em 0em;
+}
+
+/* The Shader Stuff */
+.shader {
+  position: relative;
+  overflow: hidden;
+  backface-visibility: hidden; /* Forces GPU */
+}
+
+.shader-layer {
+  background: black;
+  mix-blend-mode: multiply;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* background-size: 100%; */
+  background-position: center;
+}
+
+.specular {
+  mix-blend-mode: color-dodge;
+  background-attachment: fixed;
+}
+
+.mask {
+  mix-blend-mode: multiply;
+  /* background-image: url(sparrow_mask.png); */
+}
+
+/* Gradient Definitions */
+.gradient-sparrow {
+  background-image: linear-gradient(
+    0deg,
+    hsl(152, 79%, 72%),
+    hsl(139, 41%, 68%),
+    hsl(131, 59%, 43%),
+    hsl(213, 29%, 47%),
+    hsl(205, 47%, 55%),
+    hsl(206, 71%, 69%),
+    hsl(207, 59%, 28%),
+    hsl(96, 60%, 65%),
+    hsl(146, 60%, 60%),
+    hsl(183, 60%, 55%),
+    hsl(225, 60%, 50%),
+    hsl(265, 60%, 45%),
+    hsl(303, 60%, 40%)
+  );
+}
+
+.gradient-lumon {
+  background-image: linear-gradient(
+    0deg,
+    hsl(0, 0%, 0%) 0%,
+    hsl(0, 0%, 0%) 59.8%,
+    hsl(221, 61%, 34%) 60%,
+    hsl(197, 92%, 86%) 60.2%,
+    hsl(0, 0%, 0%) 100%
+  );
+}
+
+.gradient-turtle {
+  background-image: linear-gradient(
+    0deg,
+    hsl(0, 0%, 0%) 40%,
+    hsl(9, 70%, 74%) 50%,
+    hsl(41, 42%, 65%) 100%
+  );
+}
+
+.gradient-dragonfly {
+  background-image: linear-gradient(
+    25deg,
+    hsl(324, 17%, 24%) 30%,
+    hsl(328, 57%, 79%) 45%,
+    hsl(267, 34%, 74%) 65%,
+    hsl(285, 30%, 59%) 70%
+  );
+}
+
+.gradient-beetle {
+  background-image: linear-gradient(
+    0deg,
+    hsl(0, 38%, 35%) 10%,
+    hsl(204, 43%, 63%) 45%,
+    hsl(0, 0%, 0%) 80%
+  );
+}
+
+.gradient-nanina {
+  background-image: linear-gradient(
+    0deg,
+    hsl(0, 0%, 0%) 0%,
+    hsl(50, 100%, 88%) 30%,
+    hsl(50, 100%, 88%) 70%,
+    hsl(0, 0%, 0%) 90%
+  );
+}
+
+.gradient-mandala {
+  background-image: linear-gradient(
+    30deg,
+    hsl(30, 80%, 20%) 0%,
+    hsl(30, 80%, 80%) 10%,
+    hsl(30, 80%, 20%) 20%,
+    hsl(30, 80%, 80%) 30%,
+    hsl(30, 80%, 20%) 35%,
+    hsl(30, 80%, 80%) 50%,
+    hsl(30, 80%, 20%) 65%,
+    hsl(30, 80%, 80%) 70%,
+    hsl(30, 80%, 20%) 80%,
+    hsl(30, 80%, 80%) 90%,
+    hsl(30, 80%, 20%) 100%
+  );
+}
+
+.gradient-deer {
+  background-image: linear-gradient(
+    -25deg,
+    hsl(0, 0%, 0%) 30%,
+    hsl(104, 26%, 83%) 45%,
+    hsl(273, 22%, 25%) 65%,
+    hsl(0, 0%, 0%) 70%
+  );
+}
