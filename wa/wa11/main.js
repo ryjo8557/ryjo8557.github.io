@@ -5,11 +5,11 @@ const overlay = document.querySelector('.overlay');
 
 const imageFilenames = ['pic1.jpg', 'pic2.jpg', 'pic3.jpg', 'pic4.jpg', 'pic5.jpg'];
 const imageAlts = [
-  'Closeup of a human eye',
-  'Rock that looks like a wave',
-  'Purple and white pansies',
-  'Section of wall from a pharaoh’s tomb',
-  'Large moth on a leaf'
+  'Hollow Knight bench in Queens Garden',
+  'Quirrel and the Knight',
+  'The Hive Knight',
+  'Hornet from Silksong',
+  'Hornet and the Knight fighting'
 ];
 
 for (let i = 0; i < imageFilenames.length; i++) {
