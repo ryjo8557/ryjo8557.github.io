@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Random Dog Info</title>
+</head>
+<body>
+    <div class="container">
+        <img id="js-dog-image" src="" alt="A random dog image">
+        <div class="quote-text" id="js-dog-info"></div>
+        
+        <button type="button" id="js-new-dog" class="new-quote button">
+            Give me a new dog!
+        </button>
+
+        <section class="description">
+            This is an extension of the HTML from the original quote machine that pulls from a dog API rather than a Christmas Quote one, and provides
+            information like breed, origin, temperament, and life span. The button will generate a new dog image and information each time it is clicked.
+        </section>
+    </div>
+
+    <script>
+        const imageUrl = "https://api.thedogapi.com/v1/images/search";
+        const breedUrl = "https://api.thedogapi.com/v1/breeds";
+
+        document.querySelector('#js-new-dog').addEventListener('click', getDog);
+
+        async function getDog() {
+            try {
+                const [imageRes, breedRes] = await Promise.all([
+                    fetch(imageUrl),
+                    fetch(breedUrl)
+                ]);
+
+                const imageData = await imageRes.json();
+                const breedData = await breedRes.json();
+
+                const dogImage = imageData[0].url;
+                const randomBreed = breedData[Math.floor(Math.random() * breedData.length)];
+
+                document.querySelector('#js-dog-image').src = dogImage;
+
+                document.querySelector('#js-dog-info').innerHTML = `
+                    <strong>Breed:</strong> ${randomBreed.name}<br>
+                    <strong>Origin:</strong> ${randomBreed.origin || "Unknown"}<br>
+                    <strong>Temperament:</strong> ${randomBreed.temperament}<br>
+                    <strong>Life Span:</strong> ${randomBreed.life_span}
+                `;
+            } catch (error) {
+                console.log("Error: " + error);
+            }
+        }
+
+        getDog();
+    </script>
+</body>
+</html>
