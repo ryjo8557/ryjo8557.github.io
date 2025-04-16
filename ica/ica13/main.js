@@ -30,11 +30,19 @@ class Ball {
   }
 
   update() {
-    if (this.x + this.size >= width || this.x - this.size <= 0) {
+    if ((this.x + this.size) >= width) {
       this.velX = -this.velX;
     }
 
-    if (this.y + this.size >= height || this.y - this.size <= 0) {
+    if ((this.x - this.size) <= 0) {
+      this.velX = -this.velX;
+    }
+
+    if ((this.y + this.size) >= height) {
+      this.velY = -this.velY;
+    }
+
+    if ((this.y - this.size) <= 0) {
       this.velY = -this.velY;
     }
 
@@ -43,14 +51,27 @@ class Ball {
   }
 
   collisionDetect() {
-    for (const ball of balls) {
-      if (this !== ball) {
-        const dx = this.x - ball.x;
-        const dy = this.y - ball.y;
+    for (let j = 0; j < balls.length; j++) {
+      if (!(this === balls[j])) {
+        const dx = this.x - balls[j].x;
+        const dy = this.y - balls[j].y;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance < this.size + ball.size) {
-          this.color = ball.color = randomRGB();
+        if (distance < this.size + balls[j].size) {
+          // bounce baby bounce
+          const angle = Math.atan2(dy, dx);
+
+          const speed1 = this.velX * Math.cos(angle) + this.velY * Math.sin(angle);
+          const speed2 = balls[j].velX * Math.cos(angle) + balls[j].velY * Math.sin(angle);
+
+          if (speed1 - speed2 < 0) {
+            let tempVelX = this.velX;
+            let tempVelY = this.velY;
+            this.velX = balls[j].velX;
+            this.velY = balls[j].velY;
+            balls[j].velX = tempVelX;
+            balls[j].velY = tempVelY;
+          }
         }
       }
     }
@@ -60,18 +81,25 @@ class Ball {
 const balls = [];
 
 while (balls.length < 25) {
-  const size = random(10, 20);
-  const ball = new Ball(
-    random(size, width - size),
-    random(size, height - size),
-    random(-7, 7),
-    random(-7, 7),
-    randomRGB(),
-    size
-  );
-  balls.push(ball);
-}
-
+    const size = random(10, 20);
+    const speed = 5;
+    const angle = Math.random() * Math.PI * 2;
+  
+    const velX = Math.cos(angle) * speed;
+    const velY = Math.sin(angle) * speed;
+  
+    const ball = new Ball(
+      random(size, canvas.width - size),
+      random(size, canvas.height - size),
+      velX,
+      velY,
+      randomRGB(),
+      size
+    );
+  
+    balls.push(ball);
+  }
+  
 function loop() {
   ctx.fillStyle = "rgb(0 0 0 / 25%)";
   ctx.fillRect(0, 0, width, height);
