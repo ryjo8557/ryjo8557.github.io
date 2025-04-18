@@ -281,7 +281,7 @@ class Bear extends WorldObject {
 
     mouse.move(document, 'add', () => {
       if (this.food) {
-        if (this.mouth.distanceBetween(this.food) < 50) {
+        if (this.mouth.distanceBetween(this.food) < 100) {
           this.el.classList.add('eating')
           wrapper.classList.remove('show-message')
           this.food.eat()
@@ -321,17 +321,13 @@ class Bear extends WorldObject {
     }, 1500)
   }
   createFood() {
-    const foodTypes = ['donut', 'cookie', 'apple'] // Add new food types with matching CSS
-    const randomType = foodTypes[Math.floor(Math.random() * foodTypes.length)]
-  
     this.food = new Food({ 
-      type: randomType, 
+      type: 'donut', 
       size: { w: 72, h: 54 }, 
       canMove: true, 
       bear: this 
     })
   }
-  
 }
 
 new Bear({
@@ -339,4 +335,11 @@ new Bear({
   size: { w: 70, h: 90 },
   maxSize: { w: 90, h: 100 },
   offset: { x: null, y: null },
+})
+
+new Bear({
+  container: wrapper, 
+  size: { w: 70, h: 90 },
+  maxSize: { w: 90, h: 100 },
+  offset: { x: 80, y: null },
 })
