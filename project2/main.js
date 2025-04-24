@@ -9,7 +9,6 @@ const colors = ['green', 'red', 'blue', 'yellow'];
 const phoneInput = document.getElementById('phone');
 const changeBtn = document.getElementById('change-digit');
 const phoneDisplay = document.getElementById('phone-display');
-const status = document.getElementById('status');
 const buttons = document.querySelectorAll('.color-button');
 
 // Play the game
@@ -17,7 +16,7 @@ function playSequence(seq, index) {
   if (index >= seq.length) {
     awaitingSimon = true;
     changeBtn.style.display = 'inline-block';
-    status.textContent = `Repeat the sequence (${seq.length} steps)`;
+    textContent = `Repeat the sequence (${seq.length} steps)`;
     return;
   }
   flash(seq[index]);
@@ -59,49 +58,59 @@ function resetGame() {
   phoneInput.disabled = false;
   phoneInput.value = '';
   phoneInput.focus();
-  status.textContent = 'Enter next digit';
+  textContent = 'Enter next digit';
 }
 
 // listener guy for each color button
-buttons.forEach(button => {
-  button.addEventListener('click', () => {
-    if (!awaitingSimon) return;
-    const color = button.classList[1];
-    flash(color);
-    userInput.push(color);
-    const correct = userInput.every((c, i) => c === sequence[i]);
-    if (!correct) {
-      status.textContent = 'Wrong! Try again.';
-      userInput = [];
-      setTimeout(() => playSequence(sequence, 0), 1000);
-    } else if (userInput.length === sequence.length) {
-      changeBtn.style.display = 'none';
-      phoneNumber += currentDigit;
-      updatePhoneDisplay();
-      status.textContent = 'Correct!';
-      if (phoneNumber.length === 10) {
-        status.textContent = `${phoneNumber} submitted, thank you!`;
-        phoneInput.disabled = true;
-      } else {
-        setTimeout(resetGame, 1000);
+buttons.forEach(function(button) {
+    button.addEventListener('click', function() {
+      if (!awaitingSimon) {
+        return;
       }
-    }
-  });
-});
+      
+      const color = button.classList[1];
+      flash(color);
+      userInput.push(color);
+      
+      let correct = true;
+      for (let i = 0; i < userInput.length; i++) {
+        if (userInput[i] !== sequence[i]) {
+          correct = false;
+          break;
+        }
+      }
+  
+      if (!correct) {
+        userInput = [];
+        setTimeout(function() {
+          playSequence(sequence, 0);
+        }, 1000);
+      } else if (userInput.length === sequence.length) {
+        changeBtn.style.display = 'none';
+        phoneNumber += currentDigit;
+        updatePhoneDisplay();
+        if (phoneNumber.length === 10) {
+          phoneInput.disabled = true;
+        } else {
+          setTimeout(resetGame, 1000);
+        }
+      }
+    });
+  });  
 
 // Input the digit and start the game
-phoneInput.addEventListener('input', () => {
-  const val = phoneInput.value.trim();
-  if (!/^[0-9]$/.test(val)) {
-    phoneInput.value = '';
-    return;
-  }
-  phoneInput.disabled = true;
-  currentDigit = val;
-  sequence = generateSequence(parseInt(val));
-  status.textContent = 'Watch the sequence...';
-  playSequence(sequence, 0);
-});
+phoneInput.addEventListener('input', function() {
+    const val = phoneInput.value.trim();
+    if (!/^[0-9]$/.test(val)) { //check if its a single digit
+      phoneInput.value = '';
+      return;
+    }
+    
+    phoneInput.disabled = true;
+    currentDigit = val;
+    sequence = generateSequence(parseInt(val));
+    playSequence(sequence, 0);
+  });
 
 // Change the current digit if needed
 changeBtn.addEventListener('click', () => {
@@ -112,7 +121,7 @@ changeBtn.addEventListener('click', () => {
   phoneInput.disabled = false;
   phoneInput.value = '';
   phoneInput.focus();
-  status.textContent = 'Digit canceled. Enter a new digit.';
+  textContent = 'Digit canceled. Enter a new digit.';
   updatePhoneDisplay();
   changeBtn.style.display = 'none';
 });
