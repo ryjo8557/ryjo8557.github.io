@@ -3,174 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <title>Simon Says Phone Input</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      margin: 40px;
-    }
-    .digit-input {
-      font-size: 24px;
-      width: 200px;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .color-buttons {
-      display: flex;
-      justify-content: center;
-      margin: 20px 0;
-    }
-    .color-button {
-    width: 80px;
-    height: 80px;
-    margin: 10px;
-    border-radius: 10px;
-    border: 2px solid #333;
-    cursor: pointer;
-    opacity: 0.3;
-    transition: background-color 0.2s, opacity 0.2s, box-shadow 0.2s;
-    }
-    .green { background-color: green; }
-    .red { background-color: red; }
-    .blue { background-color: blue; }
-    .yellow { background-color: yellow; }
-    .active {
-      opacity: 1;
-      box-shadow: 0 0 20px white;
-    }
-    #status {
-      font-size: 18px;
-      margin-top: 20px;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <h1>Simon Says Phone Input</h1>
-  <input type="text" id="phone" class="digit-input" placeholder="Enter digit" maxlength="1" disabled>
-  <button id="change-digit" style="display:none; margin-left: 10px;">Change Digit</button>
+  <input type="text" id="phone" class="digit-input" placeholder="Enter digit" maxlength="1">
+  <button id="change-digit" style="display:none;">Change Digit</button>
   <div class="color-buttons">
-    <div class="color-button green" data-color="green"></div>
-    <div class="color-button red" data-color="red"></div>
-    <div class="color-button blue" data-color="blue"></div>
-    <div class="color-button yellow" data-color="yellow"></div>
+    <div class="color-button green"></div>
+    <div class="color-button red"></div>
+    <div class="color-button blue"></div>
+    <div class="color-button yellow"></div>
   </div>
   <div id="status">Enter a digit to begin</div>
   <div id="current-phone" style="margin-top: 10px; font-size: 20px;">
     Phone number so far: <span id="phone-display"></span>
   </div>
-
-  <script>
-    const colors = ['green', 'red', 'blue', 'yellow'];
-    const phoneInput = document.getElementById('phone');
-    const changeBtn = document.getElementById('change-digit');
-    const phoneDisplay = document.getElementById('phone-display');
-    const status = document.getElementById('status');
-    const buttons = document.querySelectorAll('.color-button');
-
-    let phoneNumber = '';
-    let sequence = [];
-    let userInput = [];
-    let currentDigit = 0;
-    let awaitingSimon = false;
-
-    function flash(color) {
-      const btn = document.querySelector(`.color-button.${color}`);
-      btn.classList.add('active');
-      setTimeout(() => btn.classList.remove('active'), 400);
-    }
-
-    function playSequence(seq, i = 0) {
-    if (i >= seq.length) {
-        awaitingSimon = true;
-        changeBtn.style.display = 'inline-block'; // Show change button here
-        status.textContent = `Repeat the sequence (${seq.length} steps)`;
-        return;
-    }
-    flash(seq[i]);
-    setTimeout(() => playSequence(seq, i + 1), 700); // Delay between flashes
-    }
-
-    function generateSequence(length) {
-      const seq = [];
-      for (let i = 0; i < length; i++) {
-        seq.push(colors[Math.floor(Math.random() * colors.length)]);
-      }
-      return seq;
-    }
-
-    function updatePhoneDisplay() {
-    const displayBox = document.getElementById('current-phone');
-    if (phoneNumber.length >= 10) {
-        displayBox.style.display = 'none';
-    } else {
-        displayBox.style.display = 'block';
-        phoneDisplay.textContent = phoneNumber || '_';
-    }
-    }
-
-    function resetSimon() {
-      sequence = [];
-      userInput = [];
-      awaitingSimon = false;
-      phoneInput.disabled = false;
-      phoneInput.value = '';
-      phoneInput.focus();
-      status.textContent = 'Enter next digit';
-    }
-
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (!awaitingSimon) return;
-        const color = btn.dataset.color;
-        flash(color);
-        userInput.push(color);
-        const correct = userInput.every((c, i) => c === sequence[i]);
-        if (!correct) {
-          status.textContent = 'Wrong! Try again.';
-          userInput = [];
-          setTimeout(() => playSequence(sequence), 1000);
-        } else if (userInput.length === sequence.length) {
-          changeBtn.style.display = 'none';
-          phoneNumber += currentDigit;
-          updatePhoneDisplay();
-          status.textContent = `Correct!`;
-          if (phoneNumber.length === 10) {
-            status.textContent = `${phoneNumber} submitted, thank you!`;
-            phoneInput.disabled = true;
-          } else {
-            setTimeout(resetSimon, 1000);
-          }
-        }
-      });
-    });
-
-    phoneInput.disabled = false;
-    phoneInput.addEventListener('input', () => {
-      const val = phoneInput.value.trim();
-      if (!/^[0-9]$/.test(val)) {
-        phoneInput.value = '';
-        return;
-      }
-      phoneInput.disabled = true;
-      currentDigit = val;
-      sequence = generateSequence(parseInt(val));
-      status.textContent = 'Watch the sequence...';
-      playSequence(sequence);
-    });
-
-    changeBtn.addEventListener('click', () => {
-    sequence = [];
-    userInput = [];
-    awaitingSimon = false;
-    currentDigit = 0;
-    phoneInput.disabled = false;
-    phoneInput.value = '';
-    phoneInput.focus();
-    status.textContent = 'Digit canceled. Enter a new digit.';
-    updatePhoneDisplay();
-    changeBtn.style.display = 'none';
-    });
-    updatePhoneDisplay();
-  </script>
+<script src="main.js"></script>
 </body>
 </html>
