@@ -7,40 +7,48 @@ let awaitingSimon = false;
 const colors = ['green', 'red', 'blue', 'yellow'];
 
 const phoneInput = document.getElementById('phone');
-const changeBtn = document.getElementById('change-digit');
 const phoneDisplay = document.getElementById('phone-display');
 const buttons = document.querySelectorAll('.color-button');
+const status = document.getElementById('status');
 
-// Play the game
-function playSequence(seq, index) {
-  if (index >= seq.length) {
-    awaitingSimon = true;
-    changeBtn.style.display = 'inline-block';
-    textContent = `Repeat the sequence (${seq.length} steps)`;
-    return;
-  }
-  flash(seq[index]);
-  setTimeout(() => playSequence(seq, index + 1), 700);
-}
-
-// Make the buttons flash
 function flash(color) {
   const button = document.querySelector(`.${color}`);
   button.classList.add('active');
   setTimeout(() => button.classList.remove('active'), 400);
 }
 
-// Generate a random color sequence bsaed on num of digits
-function generateSequence(length) {
-  const newSequence = [];
-  for (let i = 0; i < length; i++) {
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    newSequence.push(randomColor);
-  }
-  return newSequence;
+function flashAllRed(callback) {
+  buttons.forEach(btn => {
+    btn.classList.add('error');
+  });
+  setTimeout(() => {
+    buttons.forEach(btn => btn.classList.remove('error'));
+    if (callback) callback();
+  }, 500);
 }
 
-// Update the phone number display
+function playSequence(seq, index) {
+  if (index === 0) {
+    status.textContent = 'Watch the sequence';
+    phoneInput.disabled = true;
+  }
+
+  if (index >= seq.length) {
+    awaitingSimon = true;
+    status.textContent = `Repeat the sequence (${seq.length} steps)`;
+    phoneInput.disabled = false;
+    return;
+  }
+
+  flash(seq[index]);
+  setTimeout(() => playSequence(seq, index + 1), 700);
+}
+
+function addToSequence() {
+  const randomColor = colors[Math.floor(Math.random() * colors.length)];
+  sequence.push(randomColor);
+}
+
 function updatePhoneDisplay() {
   if (phoneNumber.length >= 10) {
     document.getElementById('current-phone').style.display = 'none';
@@ -50,80 +58,61 @@ function updatePhoneDisplay() {
   }
 }
 
-// Reset the game
 function resetGame() {
-  sequence = [];
   userInput = [];
   awaitingSimon = false;
   phoneInput.disabled = false;
   phoneInput.value = '';
   phoneInput.focus();
-  textContent = 'Enter next digit';
+  status.textContent = 'Enter next digit';
 }
 
-// listener guy for each color button
-buttons.forEach(function(button) {
-    button.addEventListener('click', function() {
-      if (!awaitingSimon) {
-        return;
-      }
-      
-      const color = button.classList[1];
-      flash(color);
-      userInput.push(color);
-      
-      let correct = true;
-      for (let i = 0; i < userInput.length; i++) {
-        if (userInput[i] !== sequence[i]) {
-          correct = false;
-          break;
-        }
-      }
-  
-      if (!correct) {
-        userInput = [];
-        setTimeout(function() {
-          playSequence(sequence, 0);
-        }, 1000);
-      } else if (userInput.length === sequence.length) {
-        changeBtn.style.display = 'none';
-        phoneNumber += currentDigit;
-        updatePhoneDisplay();
-        if (phoneNumber.length === 10) {
-          phoneInput.disabled = true;
-        } else {
-          setTimeout(resetGame, 1000);
-        }
-      }
-    });
-  });  
+buttons.forEach(function (button) {
+  button.addEventListener('click', function () {
+    if (!awaitingSimon) return;
 
-// Input the digit and start the game
-phoneInput.addEventListener('input', function() {
-    const val = phoneInput.value.trim();
-    if (!/^[0-9]$/.test(val)) { //check if its a single digit
-      phoneInput.value = '';
-      return;
+    const color = button.classList[1];
+    flash(color);
+    userInput.push(color);
+
+    let correct = true;
+    for (let i = 0; i < userInput.length; i++) {
+      if (userInput[i] !== sequence[i]) {
+        correct = false;
+        break;
+      }
     }
-    
-    phoneInput.disabled = true;
-    currentDigit = val;
-    sequence = generateSequence(parseInt(val));
-    playSequence(sequence, 0);
-  });
 
-// Change the current digit if needed
-changeBtn.addEventListener('click', () => {
-  sequence = [];
-  userInput = [];
-  awaitingSimon = false;
-  currentDigit = 0;
-  phoneInput.disabled = false;
+    if (!correct) {
+      userInput = [];
+      flashAllRed(() => playSequence(sequence, 0));
+    } else if (userInput.length === sequence.length) {
+      phoneNumber += currentDigit;
+      updatePhoneDisplay();
+
+      if (phoneNumber.length === 10) {
+        phoneInput.disabled = true;
+        status.textContent = 'Phone number submitted!';
+      } else {
+        setTimeout(resetGame, 1000);
+      }
+    }
+  });
+});
+
+phoneInput.addEventListener('input', function () {
+  const val = phoneInput.value.trim();
+  if (!/^[0-9]$/.test(val)) {
+    phoneInput.value = '';
+    return;
+  }
+
+  phoneInput.disabled = true;
+  currentDigit = val;
   phoneInput.value = '';
-  phoneInput.focus();
-  textContent = 'Digit canceled. Enter a new digit.';
-  updatePhoneDisplay();
-  changeBtn.style.display = 'none';
+
+  addToSequence();
+  playSequence(sequence, 0);
 });
 
 updatePhoneDisplay();
