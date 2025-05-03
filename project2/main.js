@@ -10,6 +10,7 @@ const phoneInput = document.getElementById('phone');
 const phoneDisplay = document.getElementById('phone-display');
 const buttons = document.querySelectorAll('.color-button');
 const status = document.getElementById('status');
+const buttonContainer = document.querySelector('.color-buttons');
 
 function flash(color) {
   const button = document.querySelector(`.${color}`);
@@ -30,13 +31,15 @@ function flashAllRed(callback) {
 function playSequence(seq, index) {
   if (index === 0) {
     status.textContent = 'Watch the sequence';
-    phoneInput.disabled = true; // Disable phone input during sequence watching
+    phoneInput.disabled = true;
+    buttonContainer.classList.add('disable-hover');
   }
 
   if (index >= seq.length) {
     awaitingSimon = true;
     status.textContent = `Repeat the sequence (${seq.length} steps)`;
-    phoneInput.disabled = true; // Keep input disabled during user sequence input
+    phoneInput.disabled = true;
+    buttonContainer.classList.remove('disable-hover'); 
     return;
   }
 
@@ -61,10 +64,11 @@ function updatePhoneDisplay() {
 function resetGame() {
   userInput = [];
   awaitingSimon = false;
-  phoneInput.disabled = false; // Enable phone input after sequence completion
+  phoneInput.disabled = false;
   phoneInput.value = '';
   phoneInput.focus();
   status.textContent = 'Enter next digit';
+  buttonContainer.classList.add('disable-hover');
 }
 
 buttons.forEach(function (button) {
@@ -91,7 +95,7 @@ buttons.forEach(function (button) {
       updatePhoneDisplay();
 
       if (phoneNumber.length === 10) {
-        phoneInput.disabled = true; // Disable input when phone number is submitted
+        phoneInput.disabled = true;
         status.textContent = 'Phone number submitted!';
       } else {
         setTimeout(resetGame, 1000);
@@ -107,9 +111,9 @@ phoneInput.addEventListener('input', function () {
     return;
   }
 
-  if (awaitingSimon) return; // Prevent entering digits when awaiting sequence input
+  if (awaitingSimon) return;
 
-  phoneInput.disabled = true; // Disable phone input after entering a digit
+  phoneInput.disabled = true;
   currentDigit = val;
   phoneInput.value = '';
 
